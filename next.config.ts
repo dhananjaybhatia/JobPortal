@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{
@@ -19,9 +20,12 @@ const nextConfig: NextConfig = {
   experimental: {
     ppr: 'incremental'
   },
+
   devIndicators: {
     position: "bottom-right"
-  }
+  },
+
+
 };
 
 export default nextConfig;

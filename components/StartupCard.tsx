@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
 import { Startup, Author } from "@/sanity/types";
+import { Skeleton } from "./ui/skeleton";
 
 export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author };
 
@@ -80,5 +81,15 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+  <>
+    {[0, 1, 2, 3, 4].map((index) => (
+      <li key={index}>
+        <Skeleton className="w-full h-96 rounded-[22px] bg-zinc-400" />
+      </li>
+    ))}
+  </>
+);
 
 export default StartupCard;
