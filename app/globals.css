@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer components {
+  .heading {
+    @apply uppercase px-6 py-3 text-3xl text-[#e0e1dd] font-extrabold sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5 mx-auto;
+  }
+  .blueContainer {
+    @apply w-full bg-[#264653] min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.05));
+    animation: glowDots 4s ease-in-out infinite;
+  }
+  .sub-heading {
+    @apply font-medium text-[20px] text-[#cdceca] max-w-2xl text-center break-words;
+  }
+  .search-form {
+    @apply max-w-3xl w-full min-h-[80px] bg-[#E0E1DD] rounded-full text-[24px] mt-8 px-5 flex flex-row items-center gap-5;
+  }
+  .card_grid {
+    @apply grid md:grid-cols-3 sm:grid-cols-2 gap-5;
+  }
+  .card_grid-sm {
+    @apply grid sm:grid-cols-2 gap-5;
+  }
+  .no-result {
+    @apply text-black text-sm font-medium;
+  }
+  .startup-card {
+    @apply bg-[#F7F7F5] border border-[#D6D7D5] py-6 px-5 rounded-xl shadow-sm hover:shadow-md hover:border-[#B5B5B5] transition-all duration-300;
+  }
+  .startup-card_date {
+    @apply font-medium text-[14px] text-[#264653] bg-[#E0E1DD] px-4 py-2 rounded-full group-hover:bg-white transition-colors duration-300;
+  }
+  .text-26-semibold {
+    @apply font-semibold text-[26px] text-[#0D1B2A];
+  }
+  .startup-card_desc {
+    @apply font-normal text-[16px] line-clamp-2 my-3 text-black break-all;
+  }
+  .startup-card_img {
+    @apply w-full h-[164px] rounded-[10px] object-cover;
+  }
+  .text-16-medium {
+    @apply font-medium text-[16px] text-black;
+  }
+  .startup-card_btn {
+    @apply rounded-full bg-[#415A77] font-medium text-[16px] text-white px-5 py-3;
+  }
+  .tag {
+    @apply bg-[#FF5C67] text-[#E0E1DD] px-6 py-3 font-bold rounded-sm uppercase relative;
+  }
+  .section_container {
+    @apply px-6 py-10 max-w-7xl mx-auto;
+  }
+  .category-tag {
+    @apply font-medium text-[16px] bg-[#ffc8dd] px-4 py-2 rounded-full;
+  }
+  .view_skeleton {
+    @apply bg-zinc-400 h-10 w-24 rounded-lg fixed bottom-3 right-3;
+  }
+  .view-container {
+    @apply flex justify-end items-center mt-5 fixed bottom-3 right-3;
+  }
+  .view-text {
+    @apply font-bold text-[16px] bg-[#e9ecef]  px-4 py-2 rounded-lg capitalize;
+  }
+  .startup-form_label {
+    @apply font-bold text-[18px] text-black uppercase;
+  }
+  .startup-form_input {
+    @apply border-[3px] border-black px-5 py-7 text-2xl text-[#22577A] font-medium rounded-full mt-3 placeholder:text-gray-500 ;
+  }
+
+  .startup-form_textarea {
+    @apply border-[3px] border-black p-5 text-[18px] text-[#22577A] font-medium rounded-[20px] mt-3 placeholder:text-gray-500 ;
+  }
+
+  .startup-form_error {
+    @apply text-red-500 mt-2 ml-5;
+  }
+    .startup-form_btn {
+      @apply border-[1px] rounded-full p-5 min-h-[70px] w-full font-bold text-[18px] ;
+    }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes glowDots {
+  0%,
+  100% {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 1px
+    );
+  }
+
+  50% {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.3) 1.2px,
+      transparent 1px
+    );
+  }
+}
