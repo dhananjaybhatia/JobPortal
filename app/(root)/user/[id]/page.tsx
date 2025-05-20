@@ -4,6 +4,7 @@ import UserJobs from "@/components/UserJobs";
 import { client } from "@/sanity/lib/client";
 import { AUTHOR_BY_ID_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
 export const expiremental_ppr = true;
@@ -13,6 +14,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
   const session = await auth();
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
+
   if (!user) return notFound();
   return (
     <>

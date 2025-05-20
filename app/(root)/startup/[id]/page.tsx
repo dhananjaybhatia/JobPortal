@@ -1,4 +1,7 @@
-import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
+import {
+  PLAYLIST_BY_SLUG_QUERY,
+  STARTUP_BY_ID_QUERY,
+} from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client"; // 🔹 Make sure this is imported
 import { formatDate } from "@/lib/utils";
@@ -9,19 +12,29 @@ import markdownit from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
 
 const md = markdownit();
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
+const page = async ({ params }: { params: { id: string } }) => {
+  const id = params.id;
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+  const [post, playlist] = await Promise.all([
+    client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-picks-new",
+    }),
+  ]);
 
   if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+  if (!playlist) {
+    console.warn("No playlist found for slug: editor-picks-new");
+  }
 
-  
+  const editorPosts = playlist?.select ?? [];
+
+  const parsedContent = md.render(post?.pitch || "");
 
   return (
     <>
@@ -93,6 +106,18 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           )}
         </div>
         <hr className="border-dotted bg-zinc-400 max-w-4xl my-10 mx-auto" />
+
+        {editorPosts.length > 0 && (
+          <div className="max-w-4xl mx-auto">
+            <p className="font-semibold text-[30px] text-black">Editor Picks</p>
+            <ul className="mt-7 grid sm:grid-cols-2 gap-5">
+              {editorPosts.map((p: StartupTypeCard, i: number) => (
+                <StartupCard key={i} post={p} />
+              ))}
+            </ul>
+          </div>
+        )}
+
         <Suspense fallback={<Skeleton className="view_skeleton" />}>
           <View id={id} />
         </Suspense>
@@ -101,4 +126,4 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default Page;
+export default page;
