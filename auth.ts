@@ -4,7 +4,7 @@ import { writeClient } from "./sanity/lib/write-client";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "./sanity/lib/queries";
 import type { Session } from "next-auth";
 import type { JWT } from "next-auth/jwt";
-// import { Profile } from "next-auth";
+import { Profile } from "next-auth";
 import GitHub from "next-auth/providers/github";
 // import type { Account, Profile } from "next-auth";
 
