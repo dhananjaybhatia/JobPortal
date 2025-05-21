@@ -9,8 +9,12 @@ import { Profile } from "next-auth";
 // import type { Account, Profile } from "next-auth";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-    providers: [GitHubProvider],
-    secret: process.env.NEXTAUTH_SECRET,
+    providers: [
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID!,
+            clientSecret: process.env.GITHUB_SECRET!,
+        }),
+    ],
     callbacks: {
         async signIn({
             user,
