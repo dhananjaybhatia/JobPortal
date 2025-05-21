@@ -5,7 +5,7 @@ export const STARTUPS_QUERY = defineQuery(`
     _type == "startup" &&
     defined(slug.current) &&
     (
-      !$search ||
+      !defined($search) ||
       title match $search ||
       category match $search ||
       author->name match $search
@@ -25,8 +25,6 @@ export const STARTUPS_QUERY = defineQuery(`
     image,
   }
 `);
-
-
 
 export const STARTUP_BY_ID_QUERY =
   defineQuery(`*[_type=="startup" && _id==$id][0] {
