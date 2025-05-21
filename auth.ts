@@ -1,20 +1,16 @@
 import NextAuth from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
 import { client } from "./sanity/lib/client";
 import { writeClient } from "./sanity/lib/write-client";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "./sanity/lib/queries";
-import type { Session, User } from "next-auth";
+import type { Session } from "next-auth";
 import type { JWT } from "next-auth/jwt";
-import { Profile } from "next-auth";
+// import { Profile } from "next-auth";
+import GitHub from "next-auth/providers/github";
 // import type { Account, Profile } from "next-auth";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-    providers: [
-        GitHubProvider({
-            clientId: process.env.GITHUB_ID!,
-            clientSecret: process.env.GITHUB_SECRET!,
-        }),
-    ],
+    providers: [GitHub],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async signIn({
             user,
@@ -60,7 +56,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                     .fetch(AUTHOR_BY_GITHUB_ID_QUERY, { id: profile.id });
 
                 if (user) {
-                    token.id = user._id;
+                    token.id = user?._id;
                 }
             }
 
