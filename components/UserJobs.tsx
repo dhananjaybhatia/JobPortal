@@ -7,15 +7,17 @@ const UserJobs = async ({ id }: { id: string }) => {
   const jobs = await client.fetch(STARTUPS_BY_AUTHOR_QUERY, { id });
 
   return (
-    <div>
+    <>
       {jobs.length > 0 ? (
         jobs.map((job: StartupTypeCard) => (
-          <StartupCard key={job._id} post={job} />
+          <li key={job._id}>
+            <StartupCard post={job} />
+          </li>
         ))
       ) : (
         <p className="text-black text-sm font-normal">No posts yet</p>
       )}
-    </div>
+    </>
   );
 };
 

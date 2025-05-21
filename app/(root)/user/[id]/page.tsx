@@ -10,7 +10,7 @@ import React, { Suspense } from "react";
 export const expiremental_ppr = true;
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const id = params.id;
+  const { id } = params;
 
   const session = await auth();
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });

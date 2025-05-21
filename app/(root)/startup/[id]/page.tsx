@@ -17,7 +17,7 @@ import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
 const md = markdownit();
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const id = params.id;
+  const { id } = params;
 
   const [post, playlist] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, { id }),
